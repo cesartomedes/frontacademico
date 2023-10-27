@@ -2,16 +2,16 @@
       <div class="row">
         <div class="col-lg-8 offset-lg-2">
           <div class="table-responsive">
-            <table class="table table-bordered table-hover">
+            <table class="table table-bordered table-hover text-center">
               <thead>
                 <tr>
                   <th>#</th>
                   <th>ID</th>
-                  <!-- <th>FOTO</th> -->
+                  <th>FOTO</th>
                   <th>NOMBRES</th>
                   <th>APELLIDOS</th>
                   <th>FECHA DE REGISTRO</th>
-                  <th></th>
+                  <th>ACCIONES</th>
                 </tr>
               </thead>
               
@@ -24,12 +24,25 @@
                   <tr v-else v-for="est, i in this.estudiantes" :key="est.id">
                       <td v-text="(i+1)"></td>
                       <td v-text="(est.id)"></td>
-                      <!-- <td v-text="(est.foto)"></td> -->
+                      <td>
+                        <img v-if="est.foto" style="width: 150px !important;" :src="est.foto" class="img-thumbnail" alt="">
+                        <img v-else height="20" src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-48.png" class="img-thumbnail" alt="">
+                      </td> 
                       <td v-text="(est.nombre)"></td>
                       <td v-text="(est.apellido)"></td>
-                      <td v-text="(est.created_at)"></td>
+                      <td v-text="new Date(est.created_at).toLocaleDateString('en-US')"></td>
                       <td>
-
+                        <router-link :to="{path:'view/'+est.id}" class="btn btn-info">
+                          <i class="fa-solid fa-eye"></i>
+                        </router-link>
+                        &nbsp;
+                        <router-link :to="{path:'edit/'+est.id}" class="btn btn-warning">
+                          <i class="fa-solid fa-edit"></i>
+                        </router-link>
+                        &nbsp;
+                        <button class="btn btn-danger" v-on:click="eliminar(est.id,est.nombre)">
+                          <i class="fa-solid fa-trash"></i>
+                        </button>
                       </td>
                   </tr>
                 </tbody>
@@ -40,8 +53,8 @@
 </template>
 
 <script>
-
   import axios from 'axios';
+  import { confirmar } from '@/funciones';
   
   export default{
       data(){
@@ -63,6 +76,10 @@
               this.cargando = false;
             }
           );
+        },
+        eliminar(id, nombre){
+          confirmar('http://academicobackend.test/api/v1/estudiantes/',id,'Eliminar Estudiante','Realmente desea al estudiante a ' +nombre+ '?');
+          this.cargando= false;
         }
       }
   }
