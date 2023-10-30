@@ -79,8 +79,8 @@
         },
         eliminar(id, nombre){
           confirmar('http://academicobackend.test/api/v1/estudiantes/',id,'Eliminar Estudiante','Realmente desea al estudiante a ' +nombre+ '?');
-          this.cargando= false;
+          this.cargando = false;
         }
       }
   }
-</script>
+  </script>
