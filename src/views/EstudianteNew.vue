@@ -8,7 +8,7 @@
             <div class="card-body">
                 <form v-on:submit="guardar">
                   <div class="d-grid col-6 mx-auto mb-3">
-                    <img v-if="this.foto" height="100" :src="this.foto" id="fotoimg"  class="img-thumbnail" alt="">
+                    <img v-if="this.foto" height="400" :src="this.foto" id="fotoimg"  class="img-thumbnail" alt="">
                     <img v-else height="100" src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-512.png" class="img-thumbnail" id="fotoimg" alt="">
                   </div>
 
@@ -66,7 +66,7 @@ export default {
           apellido: this.apellido.trim(),
           foto: this.foto.trim(),
         };
-        enviarSolicitud('POST', parametros, this.url, 'Estudiante Registrado');
+        enviarSolicitud('POST', parametros, this.url, 'Estudiante Registrado!');
       }
     },
     previsualizarFoto(event) {
